@@ -1,0 +1,37 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 1em;
+  text-align: left;
+}
+
+table thead th {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px;
+}
+
+table tbody td {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+button {
+  padding: 5px 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+table {
+  border: 1px solid red;
+  width: 100%;
+  visibility: visible !important;
+}

@@ -1,22 +1,20 @@
-<p-table [value]="products">
-  <ng-template pTemplate="header">
+<h2>Product List</h2>
+<table *ngIf="products.length > 0">
+  <thead>
     <tr>
-      <th>Product</th>
+      <th>Name</th>
       <th>Price</th>
-      <th>Quantity</th>
-      <th>Add to Cart</th>
+      <th>Actions</th>
     </tr>
-  </ng-template>
-  <ng-template pTemplate="body" let-product>
-    <tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let product of products">
       <td>{{ product.name }}</td>
-      <td>${{ product.price }}</td>
+      <td>{{ product.price | currency }}</td>
       <td>
-        <p-inputNumber [(ngModel)]="product.quantity" [min]="1" [max]="10"></p-inputNumber>
-      </td>
-      <td>
-        <button pButton label="Add to Cart" (click)="addToCart(product)"></button>
+        <button (click)="addToCart(product)">Add to Cart</button>
       </td>
     </tr>
-  </ng-template>
-</p-table>
+  </tbody>
+</table>
+<p *ngIf="products.length === 0">No products available.</p>

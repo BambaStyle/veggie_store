@@ -1,17 +1,18 @@
-import { Component, inject, signal } from '@angular/core';
-import { CartService } from '../cart.service';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-shopping-cart',
-  templateUrl: './shopping-cart.component.html',
-  styleUrls: ['./shopping-cart.component.css']
+  template: `
+    <h2>Shopping Cart</h2>
+    <div class="shopping-cart">
+      <p>Shopping cart details will appear here.</p>
+    </div>
+  `,
+  styles: [`
+    .shopping-cart {
+      padding: 1rem;
+    }
+  `],
+  standalone: true
 })
-export class ShoppingCartComponent {
-  cartService = inject(CartService);
-
-  cartItems = this.cartService.cartItems;
-
-  removeFromCart(item: any) {
-    this.cartService.removeFromCart(item);
-  }
-}
+export class ShoppingCartComponent {}

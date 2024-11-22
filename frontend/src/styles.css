@@ -1,1 +1,11 @@
-/* You can add global styles to this file, and also import other style files */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.content {
+  padding: 1rem;
+  overflow-y: auto;
+  height: calc(100vh - 120px); /* Need to adjust for header and footer height */
+}

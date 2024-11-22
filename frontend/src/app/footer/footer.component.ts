@@ -2,6 +2,7 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { CartService } from '../cart.service';
 
 @Component({
+  standalone: true,
   selector: 'app-footer',
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.css']

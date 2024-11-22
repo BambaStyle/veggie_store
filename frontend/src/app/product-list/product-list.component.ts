@@ -1,21 +1,38 @@
-import { Component, signal, inject } from '@angular/core';
-import { CartService } from '../cart.service';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
+  standalone: true,
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.css']
+  styleUrls: ['./product-list.component.css'],
 })
-export class ProductListComponent {
-  cartService = inject(CartService);
+export class ProductListComponent implements OnInit {
+  products: any[] = []; // Holds the list of products fetched from the API
 
-  products = [
-    { id: 1, name: 'Tomato', price: 1.0, quantity: 1 },
-    { id: 2, name: 'Cucumber', price: 2.0, quantity: 1 },
-    { id: 3, name: 'Carrot', price: 1.5, quantity: 1 }
-  ];
+  constructor(private http: HttpClient) {}
 
-  addToCart(product: any) {
-    this.cartService.addToCart({ ...product });
+  ngOnInit(): void {
+    console.log('ProductListComponent initialized'); // Debugging log
+    this.fetchProducts();
+  }
+
+  // Fetches products from the backend
+  fetchProducts(): void {
+    console.log('Fetching products...');
+    this.http
+      .get<any[]>('http://127.0.0.1:5000/products-for-category?cat=1&pageSize=10&page=1')
+      .subscribe({
+        next: (data) => {
+          this.products = data; // Populate the products array
+          console.log('Fetched products:', this.products); // Log the fetched data
+        },
+        error: (err) => console.error('Error fetching products:', err), // Log errors
+      });
+  }
+
+  // Add product to cart (placeholder for now)
+  addToCart(product: any): void {
+    console.log('Adding to cart:', product); // Log the product being added
   }
 }
