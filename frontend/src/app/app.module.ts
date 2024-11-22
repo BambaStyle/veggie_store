@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
-import { HttpClientModule } from '@angular/common/http'; // For making HTTP requests
-import { CommonModule } from '@angular/common'; // Provides Angular directives and pipes
+import { HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
@@ -14,16 +15,16 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    ProductListComponent,
-    ShoppingCartComponent
+    ProductListComponent, // Added here
+    ShoppingCartComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    CommonModule
+    CommonModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
