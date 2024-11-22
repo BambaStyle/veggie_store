@@ -1,12 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
+import { CartService } from '../cart.service';
 
 @Component({
   selector: 'app-footer',
-  standalone: true,
-  imports: [],
   templateUrl: './footer.component.html',
-  styleUrl: './footer.component.css'
+  styleUrls: ['./footer.component.css']
 })
 export class FooterComponent {
+  cartService = inject(CartService);
 
+  totalProducts = computed(() => this.cartService.cartItems().length);
+  totalPrice = computed(() =>
+    this.cartService.cartItems().reduce((total, item) => total + item.price * item.quantity, 0)
+  );
 }

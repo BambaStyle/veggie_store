@@ -1,12 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
+import { CartService } from '../cart.service';
 
 @Component({
   selector: 'app-shopping-cart',
-  standalone: true,
-  imports: [],
   templateUrl: './shopping-cart.component.html',
-  styleUrl: './shopping-cart.component.css'
+  styleUrls: ['./shopping-cart.component.css']
 })
 export class ShoppingCartComponent {
+  cartService = inject(CartService);
 
+  cartItems = this.cartService.cartItems;
+
+  removeFromCart(item: any) {
+    this.cartService.removeFromCart(item);
+  }
 }
