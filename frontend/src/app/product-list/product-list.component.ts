@@ -1,23 +1,21 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common'; // For *ngIf and *ngFor
-import { HttpClientModule } from '@angular/common/http'; // For HTTP requests
-import { CurrencyPipe } from '@angular/common'; // For currency pipe
-import { HttpClient } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { CartService } from '../cart.service';
 
 @Component({
   selector: 'app-product-list',
   standalone: true,
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css'],
-  imports: [CommonModule, HttpClientModule], // Import CommonModule and HttpClientModule
+  imports: [CommonModule, HttpClientModule], // Include HttpClientModule
 })
 export class ProductListComponent {
   products: any[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private cartService: CartService) {}
 
   ngOnInit(): void {
-    console.log('Fetching products...');
     this.fetchProducts();
   }
 
@@ -27,13 +25,12 @@ export class ProductListComponent {
       .subscribe({
         next: (data) => {
           this.products = data;
-          console.log('Fetched products:', this.products);
         },
         error: (err) => console.error('Error fetching products:', err),
       });
   }
 
   addToCart(product: any): void {
-    console.log('Adding product to cart:', product);
+    this.cartService.addToCart(product);
   }
 }

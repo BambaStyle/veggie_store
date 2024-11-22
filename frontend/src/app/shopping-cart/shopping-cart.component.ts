@@ -1,18 +1,20 @@
 import { Component } from '@angular/core';
+import { CartService } from '../cart.service';
 
 @Component({
   selector: 'app-shopping-cart',
-  template: `
-    <h2>Shopping Cart</h2>
-    <div class="shopping-cart">
-      <p>Shopping cart details will appear here.</p>
-    </div>
-  `,
-  styles: [`
-    .shopping-cart {
-      padding: 1rem;
-    }
-  `],
-  standalone: true
+  standalone: true,
+  templateUrl: './shopping-cart.component.html',
+  styleUrls: ['./shopping-cart.component.css'],
 })
-export class ShoppingCartComponent {}
+export class ShoppingCartComponent {
+  constructor(private cartService: CartService) {}
+
+  get cartItems() {
+    return this.cartService.cartItems; // Fetch cart items
+  }
+
+  removeFromCart(product: any) {
+    this.cartService.removeFromCart(product);
+  }
+}

@@ -1,26 +1,25 @@
 import { Injectable, signal } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CartService {
   private _cartItems = signal<any[]>([]);
 
-  cartItems = this._cartItems.asReadonly();
-
-  addToCart(product: any) {
-    this._cartItems.update(items => [...items, product]);
+  get cartItems(): any[] {
+    return this._cartItems(); // Return the signal value
   }
 
-  removeFromCart(product: any) {
-    this._cartItems.update(items => items.filter(item => item !== product));
+  addToCart(product: any): void {
+    const existing = this._cartItems().find((item) => item.id === product.id);
+    if (existing) {
+      existing.quantity += 1;
+    } else {
+      this._cartItems.update((items) => [...items, { ...product, quantity: 1 }]);
+    }
   }
 
-  getTotalItems() {
-    return this._cartItems().length;
-  }
-
-  getTotalPrice() {
-    return this._cartItems().reduce((total, item) => total + item.price, 0);
+  removeFromCart(product: any): void {
+    this._cartItems.update((items) => items.filter((item) => item.id !== product.id));
   }
 }
