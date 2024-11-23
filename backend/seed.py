@@ -11,7 +11,8 @@ def seed_database():
         ProductCategory(name="Vegetables"),
         ProductCategory(name="Grains"),
         ProductCategory(name="Dairy"),
-        ProductCategory(name="Nuts & Seeds")
+        ProductCategory(name="Nuts & Seeds"),
+        ProductCategory(name="scroll_test")  # New category for scrolling test
     ]
     db.session.add_all(categories)
     db.session.commit()
@@ -51,8 +52,16 @@ def seed_database():
         Product(name="Peanuts", price=2.0, category_id=5),
         Product(name="Sunflower Seeds", price=1.8, category_id=5),
         Product(name="Walnuts", price=4.0, category_id=5),
-        Product(name="Cashews", price=3.8, category_id=5)
+        Product(name="Cashews", price=3.8, category_id=5),
     ]
+
+    # Add 100 products for the "scroll_test" category
+    for i in range(1, 101):
+        products.append(Product(
+            name=f"Scroll Test Item {i}",
+            price=round(0.5 + (i * 0.1), 2),  # Incremental price
+            category_id=6  # Category ID for "scroll_test"
+        ))
 
     # Add products to the database
     db.session.add_all(products)

@@ -13,32 +13,28 @@ import { CartService } from '../cart.service';
 export class ProductListComponent {
   products: any[] = [];
   categories: any[] = [];
-  selectedCategoryId: number | null = null;
+  selectedCategoryId: number = 1; // Default category ID
 
   constructor(private http: HttpClient, private cartService: CartService) {}
 
   ngOnInit(): void {
-    this.fetchCategories(); // Fetch categories on component load
+    this.fetchCategories();
+    this.fetchProducts();
   }
 
   fetchCategories(): void {
     this.http.get<any[]>('http://127.0.0.1:5000/product-categories').subscribe({
       next: (data) => {
         this.categories = data;
-        if (data.length > 0) {
-          this.selectedCategoryId = data[0].id; // Default to the first category
-          this.fetchProducts(); // Fetch products for the default category
-        }
       },
       error: (err) => console.error('Error fetching categories:', err),
     });
   }
 
   fetchProducts(): void {
-    if (!this.selectedCategoryId) return;
     this.http
       .get<any[]>(
-        `http://127.0.0.1:5000/products-for-category?cat=${this.selectedCategoryId}&pageSize=10&page=1`
+        `http://127.0.0.1:5000/products-for-category?cat=${this.selectedCategoryId}&pageSize=1000&page=1`
       )
       .subscribe({
         next: (data) => {
@@ -51,7 +47,6 @@ export class ProductListComponent {
       });
   }
 
-  // Change category
   onCategoryChange(event: Event): void {
     const target = event.target as HTMLSelectElement;
     this.selectedCategoryId = Number(target.value);

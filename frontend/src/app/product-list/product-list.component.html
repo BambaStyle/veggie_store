@@ -1,36 +1,36 @@
-<h2>Product List</h2>
-
-<!-- Category Dropdown -->
-<select (change)="onCategoryChange($event)">
-  <option *ngFor="let category of categories" [value]="category.id">
-    {{ category.name }}
-  </option>
-</select>
-
-<!-- Products Table -->
-<table *ngIf="products.length > 0">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Price</th>
-      <th>Quantity</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let product of products">
-      <td>{{ product.name }}</td>
-      <td>{{ product.price | currency }}</td>
-      <td>
-        <button (click)="decrementQuantity(product)">-</button>
-        {{ product.quantity }}
-        <button (click)="incrementQuantity(product)">+</button>
-      </td>
-      <td>
-        <button (click)="addToCart(product)">Add to Cart</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-<p *ngIf="products.length === 0">No products available.</p>
+<div class="product-list-container">
+  <h2>Product List</h2>
+  <div class="category-dropdown">
+    <select (change)="onCategoryChange($event)">
+      <option *ngFor="let category of categories" [value]="category.id">
+        {{ category.name }}
+      </option>
+    </select>
+  </div>
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products">
+          <td>{{ product.name }}</td>
+          <td>{{ product.price | currency }}</td>
+          <td>
+            <button (click)="decrementQuantity(product)">-</button>
+            {{ product.quantity }}
+            <button (click)="incrementQuantity(product)">+</button>
+          </td>
+          <td>
+            <button (click)="addToCart(product)">Add to Cart</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

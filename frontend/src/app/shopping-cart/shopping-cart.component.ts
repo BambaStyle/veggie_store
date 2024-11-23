@@ -16,6 +16,13 @@ export class ShoppingCartComponent {
     return this.cartService.cartItems;
   }
 
+  getTotalPrice(): number {
+    return this.cartItems.reduce(
+      (total, item) => total + item.price * item.quantity,
+      0
+    );
+  }
+
   removeFromCart(product: any): void {
     this.cartService.removeFromCart(product);
   }

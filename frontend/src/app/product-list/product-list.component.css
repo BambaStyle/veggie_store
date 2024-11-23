@@ -1,37 +1,55 @@
+.product-list-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Take the full height of the parent container */
+}
+
+.table-container {
+  flex: 1; /* Allow it to expand */
+  overflow-y: auto; /* Make rows scrollable */
+}
+
+h2 {
+  margin: 0;
+  padding: 10px 0;
+  font-size: 1.5rem;
+  text-align: center;
+  background-color: #f8f8f8;
+  border-bottom: 1px solid #ddd;
+}
+
+.category-dropdown {
+  margin: 10px auto;
+  text-align: center;
+}
+
+.category-dropdown select {
+  padding: 5px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
-  margin: 20px 0;
-  font-size: 1em;
-  text-align: left;
 }
 
-table thead th {
+thead th {
+  position: sticky;
+  top: 0; /* Keep the table headers at the top when scrolling */
   background-color: #4CAF50;
   color: white;
   padding: 10px;
+  text-align: left;
+  z-index: 2; /* Ensure it stays above the rows */
 }
 
-table tbody td {
+tbody td {
   padding: 10px;
   border: 1px solid #ddd;
 }
 
-button {
-  padding: 5px 10px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #45a049;
-}
-
-table {
-  border: 1px solid red;
-  width: 100%;
-  visibility: visible !important;
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
 }

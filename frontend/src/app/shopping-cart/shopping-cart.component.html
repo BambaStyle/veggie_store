@@ -6,3 +6,4 @@
   </li>
 </ul>
 <p *ngIf="cartItems.length === 0">Your cart is empty.</p>
+<h4 *ngIf="cartItems.length > 0">Total Price: {{ getTotalPrice() | currency }}</h4>
