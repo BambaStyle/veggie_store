@@ -8,8 +8,8 @@ import { CartService } from '../cart.service';
   styleUrls: ['./footer.component.css'],
 })
 export class FooterComponent {
-  // Compute the total number of unique products in the cart
-  totalUniqueProducts = computed(() => this.cartService.cartItems.length);
+  // Computed function to calculate total unique products
+  totalProducts = computed(() => this.cartService.cartItems.length);
 
   constructor(private cartService: CartService) {}
 }
