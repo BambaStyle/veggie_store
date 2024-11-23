@@ -22,7 +22,7 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
     AppRoutingModule,
     HttpClientModule,
     CommonModule,
-    ShoppingCartComponent, // Importing the standalone component
+    ShoppingCartComponent,
   ],
   providers: [],
   bootstrap: [AppComponent],
