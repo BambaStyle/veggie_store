@@ -10,9 +10,7 @@ import { CartService } from '../cart.service';
   styleUrls: ['./shopping-cart.component.css'],
 })
 export class ShoppingCartComponent {
-  constructor(private cartService: CartService) {
-    console.log('ShoppingCartComponent Loaded!'); // Log to confirm component loading
-  }
+  constructor(private cartService: CartService) {}
 
   get cartItems() {
     return this.cartService.cartItems;
