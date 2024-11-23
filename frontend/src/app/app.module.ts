@@ -15,14 +15,14 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    ProductListComponent, // Added here
-    ShoppingCartComponent,
+    ProductListComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     CommonModule,
+    ShoppingCartComponent, // Standalone component must be listed here
   ],
   providers: [],
   bootstrap: [AppComponent],

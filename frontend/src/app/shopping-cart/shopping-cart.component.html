@@ -1,22 +1,8 @@
-<h3>Your Cart</h3>
-<table *ngIf="cartItems.length > 0">
-  <thead>
-    <tr>
-      <th>Product</th>
-      <th>Quantity</th>
-      <th>Price</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let item of cartItems">
-      <td>{{ item.name }}</td>
-      <td>{{ item.quantity }}</td>
-      <td>{{ item.price * item.quantity | currency }}</td>
-      <td>
-        <button (click)="removeFromCart(item)">Remove</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<h3>Shopping Cart</h3>
+<ul *ngIf="cartItems.length > 0">
+  <li *ngFor="let item of cartItems">
+    {{ item.quantity }} {{ item.name }} {{ (item.price * item.quantity) | currency }}
+    <button (click)="removeFromCart(item)" aria-label="Remove item">[x]</button>
+  </li>
+</ul>
 <p *ngIf="cartItems.length === 0">Your cart is empty.</p>
