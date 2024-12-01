@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { CartService } from '../cart.service';
-import { DropdownModule } from 'primeng/dropdown';
 import { FormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
 
@@ -11,7 +10,7 @@ import { TableModule } from 'primeng/table';
   standalone: true,
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css'],
-  imports: [CommonModule, HttpClientModule, DropdownModule, FormsModule, TableModule],
+  imports: [CommonModule, HttpClientModule, FormsModule, TableModule],
 })
 export class ProductListComponent {
   products: any[] = [];
@@ -31,7 +30,7 @@ export class ProductListComponent {
         this.categories = data.map((category) => ({
           label: category.name,
           value: category.id,
-        })); // PrimeNG dropdown expects `label` and `value`
+        })); // Populate the dropdown with categories
       },
       error: (err) => console.error('Error fetching categories:', err),
     });
@@ -54,7 +53,7 @@ export class ProductListComponent {
   }
 
   onCategoryChange(event: any): void {
-    this.selectedCategoryId = event.value; // PrimeNG dropdown passes selected value as `event.value`
+    this.selectedCategoryId = Number(event.target.value); // Update selectedCategoryId
     this.fetchProducts(); // Fetch products for the selected category
   }
 

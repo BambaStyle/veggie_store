@@ -19,6 +19,17 @@
   width: 50%; /* Center the dropdown and make it responsive */
 }
 
+.category-dropdown select {
+  font-size: 1.2rem; /* Increase font size */
+  padding: 8px; /* Add padding for better appearance */
+  width: 15%; /* Adjust width */
+  margin: 0 auto; /* Center the dropdown */
+  display: block; /* Ensure it's centered as a block element */
+  border: 1px solid #ccc; /* Optional: Add a border */
+  border-radius: 4px; /* Optional: Add rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+}
+
 .table-container {
   margin-top: 15px;
   flex: 1;

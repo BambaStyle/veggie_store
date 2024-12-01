@@ -1,12 +1,11 @@
 <div class="product-list-container">
   <h2 class="product-list-title">Product List</h2>
   <div class="category-dropdown">
-    <p-dropdown
-      [options]="categories"
-      [(ngModel)]="selectedCategoryId"
-      (onChange)="onCategoryChange($event)"
-      placeholder="Select a Category"
-    ></p-dropdown>
+    <select [(ngModel)]="selectedCategoryId" (change)="onCategoryChange($event)">
+      <option *ngFor="let category of categories" [value]="category.value">
+        {{ category.label }}
+      </option>
+    </select>
   </div>
   <div class="table-container">
     <p-table [value]="products" [scrollable]="true" scrollHeight="400px">
