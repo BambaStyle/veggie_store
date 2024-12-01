@@ -1,15 +1,10 @@
 .product-list-container {
   display: flex;
   flex-direction: column;
-  height: 100%; /* Take the full height of the parent container */
+  height: 100%;
 }
 
-.table-container {
-  flex: 1; /* Allow it to expand */
-  overflow-y: auto; /* Make rows scrollable */
-}
-
-h2 {
+.product-list-title {
   margin: 0;
   padding: 10px 0;
   font-size: 1.5rem;
@@ -21,35 +16,10 @@ h2 {
 .category-dropdown {
   margin: 10px auto;
   text-align: center;
+  width: 50%; /* Center the dropdown and make it responsive */
 }
 
-.category-dropdown select {
-  padding: 5px;
-  font-size: 1rem;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-thead th {
-  position: sticky;
-  top: 0; /* Keep the table headers at the top when scrolling */
-  background-color: #4CAF50;
-  color: white;
-  padding: 10px;
-  text-align: left;
-  z-index: 2; /* Ensure it stays above the rows */
-}
-
-tbody td {
-  padding: 10px;
-  border: 1px solid #ddd;
-}
-
-tbody tr:nth-child(even) {
-  background-color: #f9f9f9;
+.table-container {
+  margin-top: 15px;
+  flex: 1;
 }

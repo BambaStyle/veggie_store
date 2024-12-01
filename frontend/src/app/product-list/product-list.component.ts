@@ -2,13 +2,16 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { CartService } from '../cart.service';
+import { DropdownModule } from 'primeng/dropdown';
+import { FormsModule } from '@angular/forms';
+import { TableModule } from 'primeng/table';
 
 @Component({
   selector: 'app-product-list',
   standalone: true,
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css'],
-  imports: [CommonModule, HttpClientModule],
+  imports: [CommonModule, HttpClientModule, DropdownModule, FormsModule, TableModule],
 })
 export class ProductListComponent {
   products: any[] = [];
@@ -25,7 +28,10 @@ export class ProductListComponent {
   fetchCategories(): void {
     this.http.get<any[]>('http://127.0.0.1:5000/product-categories').subscribe({
       next: (data) => {
-        this.categories = data;
+        this.categories = data.map((category) => ({
+          label: category.name,
+          value: category.id,
+        })); // PrimeNG dropdown expects `label` and `value`
       },
       error: (err) => console.error('Error fetching categories:', err),
     });
@@ -47,10 +53,9 @@ export class ProductListComponent {
       });
   }
 
-  onCategoryChange(event: Event): void {
-    const target = event.target as HTMLSelectElement;
-    this.selectedCategoryId = Number(target.value);
-    this.fetchProducts();
+  onCategoryChange(event: any): void {
+    this.selectedCategoryId = event.value; // PrimeNG dropdown passes selected value as `event.value`
+    this.fetchProducts(); // Fetch products for the selected category
   }
 
   incrementQuantity(product: any): void {

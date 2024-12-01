@@ -1,9 +1,23 @@
 <h3>Shopping Cart</h3>
-<ul *ngIf="cartItems.length > 0">
-  <li *ngFor="let item of cartItems">
-    {{ item.quantity }} {{ item.name }} {{ (item.price * item.quantity) | currency }}
-    <button (click)="removeFromCart(item)" aria-label="Remove item">[x]</button>
-  </li>
-</ul>
+<p-table [value]="cartItems" [scrollable]="true" scrollHeight="200px">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Quantity</th>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Actions</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-item>
+    <tr>
+      <td>{{ item.quantity }}</td>
+      <td>{{ item.name }}</td>
+      <td>{{ (item.price * item.quantity) | currency }}</td>
+      <td>
+        <button pButton label="Remove" (click)="removeFromCart(item)"></button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
 <p *ngIf="cartItems.length === 0">Your cart is empty.</p>
 <h4 *ngIf="cartItems.length > 0">Total Price: {{ getTotalPrice() | currency }}</h4>

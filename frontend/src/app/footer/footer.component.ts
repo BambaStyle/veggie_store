@@ -6,9 +6,9 @@ import { CartService } from '../cart.service';
   standalone: true,
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.css'],
+  imports: []
 })
 export class FooterComponent {
-  // Computed function to calculate total unique products
   totalProducts = computed(() => this.cartService.cartItems.length);
 
   constructor(private cartService: CartService) {}
