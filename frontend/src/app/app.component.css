@@ -1,4 +1,3 @@
-/* Reset styles for consistent layout */
 body, html {
   margin: 0;
   padding: 0;
@@ -7,21 +6,18 @@ body, html {
   flex-direction: column;
 }
 
-/* Ensure the app takes the full viewport height */
 .app {
   display: flex;
   flex-direction: column;
   height: 100%;
 }
 
-/* Content area between header and footer */
 .content {
   flex: 1;
   display: flex;
   overflow: hidden; /* Prevent page scroll */
 }
 
-/* Fixed header styling */
 .header {
   background-color: #4caf50;
   color: white;
@@ -30,7 +26,6 @@ body, html {
   flex-shrink: 0; /* Ensure it doesn't shrink */
 }
 
-/* Fixed footer styling */
 .footer {
   background-color: #f1f1f1;
   text-align: center;
@@ -47,7 +42,6 @@ body, html {
   height: 100%; /* Ensure it fills the available space */
 }
 
-/* Body container for the table and cart */
 .body-container {
   display: flex;
   flex: 1;

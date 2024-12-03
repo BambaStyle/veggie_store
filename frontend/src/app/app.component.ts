@@ -15,7 +15,7 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
     HeaderComponent,
     FooterComponent,
     ProductListComponent,
-    ShoppingCartComponent, // Include ShoppingCartComponent here
+    ShoppingCartComponent,
   ],
 })
 export class AppComponent {}

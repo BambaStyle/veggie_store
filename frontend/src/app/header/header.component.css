@@ -1,7 +1,7 @@
 .header {
-  background-color: #4caf50; /* Green background */
-  color: white; /* White text color */
-  text-align: center; /* Center the text horizontally */
+  background-color: #4caf50;
+  color: white;
+  text-align: center;
   padding: 1rem;
-  font-size: 2rem; /* Larger font size for better visibility */
+  font-size: 2rem;
 }
