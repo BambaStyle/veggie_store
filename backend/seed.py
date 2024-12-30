@@ -1,8 +1,33 @@
-from app import app, db, ProductCategory, Product
+from flask_sqlalchemy import SQLAlchemy
+from flask import Flask
+
+# Create a standalone Flask app for seeding
+seed_app = Flask(__name__)
+
+# Configure SQLite database
+seed_app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///store.db'
+seed_app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(seed_app)
+
+# Models
+class ProductCategory(db.Model):
+    __tablename__ = 'product_category'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), unique=True, nullable=False)
+
+class Product(db.Model):
+    __tablename__ = 'product'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    price = db.Column(db.Float, nullable=False)
+    category_id = db.Column(db.Integer, db.ForeignKey('product_category.id'), nullable=False)
+    category = db.relationship('ProductCategory', backref='products')
 
 def seed_database():
-    # Drop all existing data and recreate the tables
+    print("Dropping all existing tables...")
     db.drop_all()
+    print("Creating all tables...")
     db.create_all()
 
     # Define product categories
@@ -68,7 +93,6 @@ def seed_database():
     db.session.commit()
     print("Database seeded successfully!")
 
-# Run the seed function within the app context
 if __name__ == "__main__":
-    with app.app_context():
+    with seed_app.app_context():
         seed_database()

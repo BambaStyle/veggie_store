@@ -1,56 +1,34 @@
-from flask import Flask, request, jsonify
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
+import argparse
+import os
 
+# Initialize Flask App
 app = Flask(__name__)
 CORS(app)
 
-# Configure SQLite database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///store.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
+# Argument Parser
+parser = argparse.ArgumentParser(description="Veggie Store Backend")
+parser.add_argument("--db", required=True, help="Path to the database (JSON or SQLite DB file)")
+args = parser.parse_args()
 
-# Models
-class ProductCategory(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50), unique=True, nullable=False)
+# Determine DB Type
+db_source = args.db
+if db_source.endswith(".json"):
+    app.config["DB_TYPE"] = "json"
+    app.config["DB_SOURCE"] = db_source
+elif db_source.endswith(".db"):
+    app.config["DB_TYPE"] = "db"
+    app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{db_source}"
+    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    db = SQLAlchemy(app)
+else:
+    raise ValueError("Unsupported file type. Use a .db or .json file.")
 
-class Product(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
-    price = db.Column(db.Float, nullable=False)
-    category_id = db.Column(db.Integer, db.ForeignKey('product_category.id'), nullable=False)
-    category = db.relationship('ProductCategory', backref='products')
-
-# Create database tables
-with app.app_context():
-    db.create_all()
-
-
-# Routes
-@app.route('/product-categories', methods=['GET'])
-def get_categories():
-    categories = ProductCategory.query.all()
-    return jsonify([{'id': c.id, 'name': c.name} for c in categories])
-
-@app.route('/products-for-category', methods=['GET'])
-def get_products_for_category():
-    category_id = request.args.get('cat')
-    page_size = int(request.args.get('pageSize', 10))
-    page = int(request.args.get('page', 1))
-
-    products = Product.query.filter_by(category_id=category_id)\
-        .paginate(page=page, per_page=page_size).items
-    return jsonify([
-        {'id': p.id, 'name': p.name, 'price': p.price, 'category_id': p.category_id}
-        for p in products
-    ])
-
-@app.route('/shopping-cart', methods=['POST'])
-def update_shopping_cart():
-    cart_data = request.json
-    print("Received cart data:", cart_data)  # For debugging
-    return jsonify({'message': 'Shopping cart updated successfully'})
+# Register Blueprints
+from controllers.product_controller import product_blueprint
+app.register_blueprint(product_blueprint)
 
 if __name__ == '__main__':
     app.run(debug=True)
