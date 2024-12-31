@@ -1,3 +1,3 @@
 from flask_sqlalchemy import SQLAlchemy
 
-db = SQLAlchemy()  # Initialize the SQLAlchemy instance
+db = SQLAlchemy()  # Create a single shared instance of SQLAlchemy

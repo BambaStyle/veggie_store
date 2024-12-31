@@ -1,16 +1,13 @@
-from flask_sqlalchemy import SQLAlchemy
+from extensions import db
 from flask import Flask
 
 # Create a standalone Flask app for seeding
 seed_app = Flask(__name__)
-
-# Configure SQLite database
 seed_app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///store.db'
 seed_app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-db = SQLAlchemy(seed_app)
+db.init_app(seed_app)
 
-# Models
 class ProductCategory(db.Model):
     __tablename__ = 'product_category'
     id = db.Column(db.Integer, primary_key=True)

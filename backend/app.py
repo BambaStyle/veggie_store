@@ -1,12 +1,11 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 import argparse
-import os
+from extensions import db
 
 # Initialize Flask App
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "http://localhost:4200"}})
 
 # Argument Parser
 parser = argparse.ArgumentParser(description="Veggie Store Backend")
@@ -22,7 +21,8 @@ elif db_source.endswith(".db"):
     app.config["DB_TYPE"] = "db"
     app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{db_source}"
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-    db = SQLAlchemy(app)
+    # Initialize extensions only for database type 'db'
+    db.init_app(app)
 else:
     raise ValueError("Unsupported file type. Use a .db or .json file.")
 
