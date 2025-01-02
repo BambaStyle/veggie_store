@@ -12,6 +12,5 @@ def get_database_uri():
         return f'sqlite:///{os.path.abspath(db_path)}'
     elif db_path.endswith('.json'):
         return f'json:///{os.path.abspath(db_path)}'
-    elif db_path.endswith('.txt'):
     else:
         raise ValueError('Unsupported database format. Use .db, .json, or .txt')
